@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from "@nestjs/common";
 import { BookService } from "./book.service";
 import { Book } from "./data/book.dto";
+import { BookPipe } from "./pipes/book.pipe";
 
 @Controller('book')
 export class BookController {
@@ -30,5 +31,19 @@ export class BookController {
     addBook(@Body() book: Book): string {
         return this.bookService.addBookService(book);
     }
+
+    // Pipes
+    @Get('/:id')
+    getPipes(@Param('id', ParseIntPipe) id: Book): string {
+        console.log(id, typeof id);
+        return 'Get Pipes id'
+    }
+
+    @Post('addPipes')
+    postPipes(@Body(new BookPipe()) book: Book): string {
+        console.log(book, typeof book);
+        return 'Post Pipes id'
+    }
+
     
 }
