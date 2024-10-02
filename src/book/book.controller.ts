@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from "@nestjs/common";
 import { BookService } from "./book.service";
-import { Book } from "./data/book.dto";
+import { BookDto } from "./dto/book.dto";
 import { BookPipe } from "./pipes/book.pipe";
 
 @Controller('book')
@@ -10,13 +10,13 @@ export class BookController {
 
     // add book
     @Get('/findAll')
-    getAllBook(): Book[] {
+    getAllBook(): BookDto[] {
         return this.bookService.findAllBookService();
     }
 
     // update book
     @Put('/update')
-    updateBook(@Body() book: Book): string {
+    updateBook(@Body() book: BookDto): string {
         return this.bookService.updateBookService(book);
     }
 
@@ -28,19 +28,19 @@ export class BookController {
 
     // add book
     @Post('/add')
-    addBook(@Body() book: Book): string {
+    addBook(@Body() book: BookDto): string {
         return this.bookService.addBookService(book);
     }
 
     // Pipes
     @Get('/:id')
-    getPipes(@Param('id', ParseIntPipe) id: Book): string {
+    getPipes(@Param('id', ParseIntPipe) id: BookDto): string {
         console.log(id, typeof id);
         return 'Get Pipes id'
     }
 
     @Post('addPipes')
-    postPipes(@Body(new BookPipe()) book: Book): string {
+    postPipes(@Body(new BookPipe()) book: BookDto): string {
         console.log(book, typeof book);
         return 'Post Pipes id'
     }

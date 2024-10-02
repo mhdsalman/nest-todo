@@ -1,20 +1,20 @@
 import { Injectable } from "@nestjs/common";
-import { Book } from "./data/book.dto";
+import { BookDto } from "./dto/book.dto";
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class BookService {
-    public books: Book[] = []
+    public books: BookDto[] = []
 
 
     // add book
-    addBookService(book: Book): string {
+    addBookService(book: BookDto): string {
         book.id = uuidv4();
         this.books.push(book);
         return 'Book has been added successfully';
     }
     // update book
-    updateBookService(book: Book): string {
+    updateBookService(book: BookDto): string {
         let index  = this.books.findIndex(b => b.id == book.id);
         this.books[index] = book;
         return 'Book has been updated successfully';
@@ -29,7 +29,7 @@ export class BookService {
         return 'Book has been deleted successfully';
     }
     // find all book
-    findAllBookService(): Book[] {
+    findAllBookService(): BookDto[] {
         return this.books;
     }
 }
